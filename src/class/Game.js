@@ -1,18 +1,15 @@
-import * as THREE from "three";
-
 import { Config } from "./Config.js";
 import { Formula } from "./m/Formula.js";
 import { Controls } from "./m/Controls.js";
 import { Cameras } from "./m/scene/Cameras.js";
 import { Lights } from "./m/scene/Lights.js";
-
 import { Canva } from "./m/Canva.js";
 import { SceneManager } from "./m/SceneManager.js";
-
 import { DomManager } from "./m/DomManager.js";
 import { Vehicules } from "./m/scene/Vehicules.js";
 import { FloorsManager } from "./m/scene/FloorsManager.js";
 import { Orbital } from "./m/Orbital.js";
+import { WindowActive } from "./m/WindowActive.js";
 // import { Listeners } from "./m/Listeners.js";
 import { M } from "./m/M.js";
 
@@ -31,6 +28,7 @@ class Game {
 			lights: new Lights(),
 			vehicules: new Vehicules(),
 			orbital: new Orbital(),
+			windowActive: new WindowActive(),
 		});
 		// ----------------------------------
 		this._M.setinitiables();
@@ -45,15 +43,14 @@ class Game {
 	}
 
 	_animate = () => {
-		console.log("update");
 		// ----------------------------------
 		this._M.sceneManager._Vehicules._mooves();
 		this._M.sceneManager._Lights.rotateSun();
 		this._M.sceneManager.camera.updateProjectionMatrix();
 		// ----------------------------------
 		this._M.canva.initRender();
-		// ----------------------------------
 		this._M.orbital.orbitControls.update();
+		// ----------------------------------
 		requestAnimationFrame(this._animate);
 	};
 }

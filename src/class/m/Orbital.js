@@ -4,7 +4,6 @@ class Orbital {
 	constructor() {
 	}
 	init(datas) {
-		console.log(datas)
 		this.sceneManager = datas.sceneManager;
 		this.canva = datas.canva;
 		this.orbitControlsClass = datas.orbitControls;

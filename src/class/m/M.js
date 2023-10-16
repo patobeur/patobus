@@ -108,6 +108,12 @@ class M {
 					className: "orbital",
 					dependances: ["sceneManager","canva"],
 				},
+				windowActive: {
+					auto: true,
+					order: new Number(7),
+					className: "windowActive",
+					dependances: ["config"],
+				},
 			},
 		};
 	}

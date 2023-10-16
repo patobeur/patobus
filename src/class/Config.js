@@ -1,6 +1,7 @@
 import * as THREE from "three";
 class Config {
-	name='wtf'
+	name='PatoBus'
+	pauseModalText='PatoBus'
 	constructor() {
 		this._setConfig();
 	}
