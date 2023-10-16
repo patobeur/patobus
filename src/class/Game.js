@@ -2,6 +2,7 @@ import { Config } from "./Config.js";
 import { Formula } from "./m/Formula.js";
 import { Controls } from "./m/Controls.js";
 import { Cameras } from "./m/scene/Cameras.js";
+import { ThirdPersonCamera } from "./m/scene/ThirdPersonCamera.js";
 import { Lights } from "./m/scene/Lights.js";
 import { Canva } from "./m/Canva.js";
 import { SceneManager } from "./m/SceneManager.js";
@@ -23,6 +24,7 @@ class Game {
 			sceneManager: new SceneManager(),
 			floorsManager: new FloorsManager(),
 			cameras: new Cameras(),
+			thirdPersonCamera: new ThirdPersonCamera(),
 			dom: new DomManager(),
 			canva: new Canva(),
 			lights: new Lights(),
@@ -36,6 +38,7 @@ class Game {
 		// ----------------------------------
 		// this._M..init_OrbitControls();
 		// ----------------------------------
+		this._M.cameras.update();
 		this._M.canva.initRender();
 		this._M.dom.resizeListener(this._M.canva.renderer, this._M.cameras.camera);
 		// ----------------------------------
@@ -44,14 +47,17 @@ class Game {
 
 	_animate = () => {
 		// ----------------------------------
-		this._M.sceneManager._Vehicules._mooves();
-		this._M.sceneManager._Lights.rotateSun();
-		this._M.sceneManager.camera.updateProjectionMatrix();
-		// ----------------------------------
-		this._M.canva.initRender();
-		this._M.orbital.orbitControls.update();
-		// ----------------------------------
-		requestAnimationFrame(this._animate);
+		// if (this._M.windowActive._windowActive) {
+			this._M.vehicules._mooves();
+			this._M.lights.rotateSun();
+			this._M.cameras.update();
+			// this._M.cameras.camera.updateProjectionMatrix();
+			// ----------------------------------
+			this._M.canva.initRender();
+			if (this._M.orbital.active) this._M.orbital.orbitControls.update();
+			// ----------------------------------
+			requestAnimationFrame(this._animate);
+		// }
 	};
 }
 export { Game };

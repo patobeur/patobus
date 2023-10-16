@@ -1,23 +1,24 @@
-
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 class Orbital {
 	constructor() {
+		this.active = false;
 	}
 	init(datas) {
+		if(this.active) {
 		this.sceneManager = datas.sceneManager;
 		this.canva = datas.canva;
 		this.orbitControlsClass = datas.orbitControls;
-		this.init_OrbitControls()
-		
+		this.init_OrbitControls();
 	}
-	init_OrbitControls(){
+	}
+	init_OrbitControls() {
 		this.orbitControls = new OrbitControls(
 			this.sceneManager.camera,
 			this.canva.renderer.domElement
 		);
 		// target
 		this.orbitControls.target =
-		this.sceneManager._Vehicules._vehicule.position.clone();
+			this.sceneManager._Vehicules._vehicule.position.clone();
 		// target
 		this.orbitControls.panSpeed = 1;
 		this.orbitControls.rotateSpeed = 0.5;

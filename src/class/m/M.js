@@ -16,6 +16,7 @@ class M {
 		for (const className in this.vmconfig.classes) {
 			if (typeof this[className] === "undefined") {
 				// la classe n'existe pas
+				console.log('la classe n\'existe pas')
 			} else {
 				let init = this.vmconfig.classes[className].init === true;
 				let dependant = this.vmconfig.classes[className].dependant === true;
@@ -35,7 +36,12 @@ class M {
 	init_classe(datas) {
 		let classes = {};
 		datas.dependances.forEach((className) => {
-			classes[className] = this[className];
+			if(typeof this[className] === 'object'){
+				classes[className] = this[className];
+			}
+			else {
+				console.log("bug avec ",className)
+			}
 		});
 		datas.classes = classes;
 		// inititalisation de la classe
@@ -58,7 +64,7 @@ class M {
 					auto: true,
 					order: new Number(0),
 					className: "cameras",
-					dependances: ["config"],
+					dependances: ["config","thirdPersonCamera","vehicules"],
 				},
 				controls: {
 					auto: true,
