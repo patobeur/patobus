@@ -1,0 +1,99 @@
+:root{
+	--DirectionThumbWidth: 70px;
+}
+body {
+	margin: 0px;
+	text-align: center;
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	background-color: rgb(42, 38, 58);
+}
+#fullscreen {
+	position: absolute;
+	height: 40px;
+	width: 40px;
+	right: 20px;
+	top: 20px;
+	background-color: rgb(42, 38, 58);
+	border-radius: 50%;
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 35px;
+	line-height: 35px;
+}
+.mire,
+.target {
+	position: absolute;
+	height: 20px;
+	width: 20px;
+	left: calc(50% - 10px);
+	top: calc(50% - 10px);
+	background-color: rgba(153, 205, 50, 0.493);
+	border-radius: 50%;
+}
+
+.mire {
+	display: none;
+}
+.target {
+	background-color: rgba(248, 234, 33, 0.459);
+}
+
+.tdb {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+#direction {
+	position: absolute;
+	width: var(--DirectionThumbWidth);
+	height: var(--DirectionThumbWidth);
+	top: calc(100% - (var(--DirectionThumbWidth)*2));
+	left: calc((var(--DirectionThumbWidth)));
+	background-color: rgba(54, 59, 26, 0.473);
+	border-radius: 50%;
+}
+
+#direction #thumb {
+	position: absolute;
+	background-color: rgba(0, 0, 255, 0.644);
+	top: 15%;
+	left: 15%;
+	width: 70%;
+	height: 70%;
+	border-radius: 50%;
+}
+#direction #thumb:hover {
+	background-color: rgba(0, 255, 34, 0.644);
+	/* top: 7.5%;
+	left: 7.5%;
+	width: 85%;
+	height: 85%; */
+}
+
+.board{
+	position: absolute;
+	background-color: rgba(0, 0, 255, 0.644);
+	top: .0;
+	left:0;
+	width:75px;
+	height:75px;
+	display:flex;
+	flex-direction: column;
+	/* rotate: -90deg; */
+}
+.stat{
+	width:100%;
+	height:33%;
+	display:flex;
+	background-color: rgba(34, 34, 88, 0.644);
+	border: 1px solid rgb(0, 0, 0);
+}
+.current{
+	height:100%;
+	/* width:100%; */
+}
