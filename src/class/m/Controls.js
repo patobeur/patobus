@@ -1,20 +1,14 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.118/build/three.module.js";
-import { Formula } from "./Formula.js";
+import * as THREE from "three";
 class Controls {
   conslog = true
   _preventDefaultRightClick = true; // dev mod
   _TouchM
-  _GameConfig;
-  _touchDeviceActive;
-  pMouse
-  zooming
   constructor(Type,GameConfig={}) {
     // this.conslog = GameConfig.conslog
-    this._Formula = new Formula()
-    this.order = 0;
-    this._GameConfig = GameConfig;
-    
-
+  }
+  init(datas){
+    this.formula = datas.formula
+    this._GameConfig = datas.config;
     this._initProperties();
     this.detectDevice = this._isTouchDevice();
     this._setupDeviceControls();
@@ -80,7 +74,7 @@ class Controls {
 
     const detectedDevice = { touchEvent, ontouchstart, maxTouchPoints, isMousePointer };
 
-    console.table(detectedDevice);
+    // console.table(detectedDevice);
 
     return detectedDevice;
   }
@@ -88,7 +82,7 @@ class Controls {
   _setupDeviceControls() {
     if (!this.detectDevice.isMousePointer && (this.detectDevice.touchEvent || this.detectDevice.ontouchstart || this.detectDevice.maxTouchPoints)) {
       this._touchDeviceActive = true;
-      console.log('------------> Tactil device on ! 📱');
+      // console.log('------------> Tactil device on ! 📱');
       
       this._addKeyboardListeners();
       // this._TouchM = new TouchMe(this);
@@ -96,7 +90,7 @@ class Controls {
 
     if (this.detectDevice.isMousePointer && this.detectDevice.maxTouchPoints === false) {
       this._touchDeviceActive = false;
-      console.log('------------> Keyboard\'n\'mouse on ! 🖱️ + ⌨️');
+      // console.log('------------> Keyboard\'n\'mouse on ! 🖱️ + ⌨️');
       this._addKeyboardListeners();
       this._addMouseListeners();
     }
@@ -149,13 +143,13 @@ class Controls {
     target.style.left = `${event.clientX - 5}px`;
     target.style.top = `${event.clientY - 5}px`;
 
-    this.thetaDeg = this._Formula.get_DegreeWithTwoPos(window.innerWidth / 2, window.innerHeight / 2, event.clientX, event.clientY);
+    this.thetaDeg = this.formula.get_DegreeWithTwoPos(window.innerWidth / 2, window.innerHeight / 2, event.clientX, event.clientY);
     this.pMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     this.pMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   }
 
   _addKeyboardListeners() {
-    if (this.conslog) console.log('addKeyboardListeners');
+    // if (this.conslog) console.log('addKeyboardListeners');
     document.onkeydown = event => this._handleKeyDown(event);
     document.onkeyup = event => this._handleKeyUp(event);
   }
@@ -220,45 +214,5 @@ class Controls {
 
     if (KEY_MAP[event.key]) KEY_MAP[event.key]();
   }
-
-	// _get_intersectionColorChange() {
-
-	// 	this.raycaster.setFromCamera(this.pMouse, camera);
-	// 	let intersects = this.raycaster.intersectObject(scene, true);
-	// 	if (intersects.length > 1) {
-	// 		if (intersects[0].object.name != "sand") {
-	// 			// if old intersect
-	// 			if (this.oldintersect) {
-	// 				if (this.oldintersect.uuid != intersects[0].object.uuid) {
-	// 					this.oldintersect.material.color.setHex(this.oldintersect.currentHex);
-	// 					this.oldintersect = null;
-	// 				}
-	// 			}
-	// 			else {
-	// 				// new intersect
-	// 				this.oldintersect = intersects[0].object;
-	// 				this.oldintersect.currentHex = this.oldintersect.material.color.getHex();
-	// 				this.oldintersect.uuid = intersects[0].object.uuid;
-	// 				this.oldintersect.material.color.setHex(0xffFF00);
-	// 			}
-
-	// 		}
-	// 		else {
-	// 			// sol
-	// 			if (this.oldintersect) {
-	// 				this.oldintersect.material.color.setHex(this.oldintersect.currentHex);
-	// 				this.oldintersect = null;
-	// 			}
-	// 		}
-	// 	}
-	// 	else // there are no intersections
-	// 	{
-	// 		if (intersects.length < 1) {
-	// 			// if (this.conslog) console.log('oldintersect = null', this.oldintersect)
-	// 			this.oldintersect = null;
-	// 		}
-	// 	}
-
-	// }
 }
 export { Controls };

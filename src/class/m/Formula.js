@@ -1,10 +1,5 @@
-"use strict";
 class Formula {
 	constructor() {
-		this.#Init()
-	}
-	#Init() {
-		console.log('Formula Mounted !')
 	}
 	getNextPos = (x, y, theta, speed) => {
 		return {
