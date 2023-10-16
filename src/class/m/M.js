@@ -62,31 +62,31 @@ class M {
 				},
 				controls: {
 					auto: true,
-					order: new Number(0),
+					order: new Number(1),
 					className: "controls",
 					dependances: ["config"],
 				},
 				lights: {
 					auto: true,
-					order: new Number(1),
+					order: new Number(2),
 					className: "lights",
 					dependances: ["config"],
 				},
 				floorsManager: {
 					auto: true,
-					order: new Number(2),
+					order: new Number(3),
 					className: "floorsManager",
 					dependances: ["config"],
 				},
 				vehicules: {
 					auto: true,
-					order: new Number(3),
+					order: new Number(4),
 					className: "vehicules",
 					dependances: ["config", "controls", "formula"],
 				},
 				sceneManager: {
 					auto: true,
-					order: new Number(4),
+					order: new Number(5),
 					className: "sceneManager",
 					dependances: [
 						"config",
@@ -98,9 +98,15 @@ class M {
 				},
 				canva: {
 					auto: true,
-					order: new Number(5),
+					order: new Number(6),
 					className: "canva",
 					dependances: ["config", "dom", "sceneManager"],
+				},
+				orbital: {
+					auto: true,
+					order: new Number(7),
+					className: "orbital",
+					dependances: ["sceneManager","canva"],
 				},
 			},
 		};
