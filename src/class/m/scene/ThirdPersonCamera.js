@@ -2,12 +2,14 @@ import * as THREE from "three";
 class ThirdPersonCamera {
 	constructor() {
 		this.active = true;
-		this.idealOffset = new THREE.Vector3(0, 0, 25);
-		this.idealLookat = new THREE.Vector3(0, 3, 5);
 	}
-	init(params) {
-		this._camera = params.camera;
+	initialise(params) {
+		this._config = params.config
+		this.camera = params.camera;
+		this.target = params.target
 
+		this.idealOffset = this._config.camera.idealOffset;
+		this.idealLookat = this._config.camera.idealLookat;
 		this._currentPosition = new THREE.Vector3();
 		this._currentLookat = new THREE.Vector3();
 	}
@@ -35,7 +37,7 @@ class ThirdPersonCamera {
 			// console.log(idealLookat)
 			this._currentPosition.copy(idealOffset);
 			this._currentLookat.copy(idealLookat);
-			this._camera.position.copy(this._currentPosition)
+			this.camera.position.copy(this._currentPosition)
 			// this._camera.lookAt.copy(this._currentLookat)
 		}
 	}

@@ -6,9 +6,15 @@ class M {
 		// if (this.vmconfig.classes) {}
 		for (const className in classList) {
 			if (Object.hasOwnProperty.call(classList, className)) {
-				// getting class ********************************
+				// getting all classes
 				this[className] = classList[className];
-				// getting class ********************************
+			}
+		}
+		for (const className in this.vmconfig.classes) {
+			if (typeof this[className] != "undefined") {
+				// set init value to true if init, false if not
+				this.vmconfig.classes[className].init = (typeof this[className].init != "undefined");
+				this.vmconfig.classes[className].dependant = (typeof this.vmconfig.classes[className].dependances != "undefined");
 			}
 		}
 	}
@@ -47,16 +53,6 @@ class M {
 		// inititalisation de la classe
 		this[datas.className].init(classes);
 	}
-	setinitiables() {
-		for (const className in this.vmconfig.classes) {
-			if (typeof this[className] != "undefined") {
-				this.vmconfig.classes[className].init =
-					typeof this[className].init != "undefined";
-				this.vmconfig.classes[className].dependant =
-					typeof this.vmconfig.classes[className].dependances != "undefined";
-			}
-		}
-	}
 	getVm() {
 		return {
 			classes: {
@@ -66,6 +62,12 @@ class M {
 					className: "cameras",
 					dependances: ["config","thirdPersonCamera","vehicules"],
 				},
+				// thirdPersonCamera: {
+				// 	auto: true,
+				// 	order: new Number(0),
+				// 	className: "thirdPersonCamera",
+				// 	dependances: ["config","cameras"],
+				// },
 				controls: {
 					auto: true,
 					order: new Number(1),

@@ -106,9 +106,9 @@ class Config {
 			aspect: window.innerWidth / window.innerHeight,
 			near: 0.0001,
 			far: 10000,
-			position: new THREE.Vector3(0,0, 35),
-			lookat: new THREE.Vector3(0, 0, 0),
-			offset: new THREE.Vector3(0, 0, 35), // same as position
+			position: new THREE.Vector3(0, 0, 50),
+			idealLookat: new THREE.Vector3(0, 50, 0),
+			idealOffset: new THREE.Vector3(0, 0, 35), // same as position
 		};
 		this.vehicule = {
 			velocity:new THREE.Vector3(.2, 0,0),

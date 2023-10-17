@@ -1,6 +1,9 @@
 {
   "name": "patobus",
+  "author": "patobus",
+  "description": "",
   "private": true,
+  "license": "ISC",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -11,6 +14,8 @@
     "vite": "^4.3.9"
   },
   "dependencies": {
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.7.2",
     "three": "^0.157.0"
   }
 }

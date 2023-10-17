@@ -4,12 +4,12 @@ class Orbital {
 		this.active = false;
 	}
 	init(datas) {
-		if(this.active) {
-		this.sceneManager = datas.sceneManager;
-		this.canva = datas.canva;
-		this.orbitControlsClass = datas.orbitControls;
-		this.init_OrbitControls();
-	}
+		if (this.active) {
+			this.sceneManager = datas.sceneManager;
+			this.canva = datas.canva;
+			this.orbitControlsClass = datas.orbitControls;
+			this.init_OrbitControls();
+		}
 	}
 	init_OrbitControls() {
 		this.orbitControls = new OrbitControls(
@@ -38,14 +38,14 @@ class Orbital {
 		// this.orbitControls.autoRotate = true;
 		// this.orbitControls.autoRotateSpeed = 0.2;
 
-		// this.orbitControls.enableDoll = false
+		this.orbitControls.enableDoll = false
 
 		// this.orbitControls.touches = {
 		// 	ONE: THREE.TOUCH.ROTATE,
 		// 	TWO: THREE.TOUCH.DOLLY_PAN
 		// }
 		// this.orbitControls.maxAzimuthAngle=Math.PI
-		this.orbitControls.update();
+		// this.orbitControls.update();
 	}
 }
 export { Orbital };
