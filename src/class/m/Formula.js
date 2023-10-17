@@ -31,6 +31,16 @@ class Formula {
 			return distance
 		}
 	}
+	get_DegreeWithTwoPos(fromX, fromY, destX, destY,) {
+		var nextY = fromY - destY;
+		var nextX = fromX - destX;
+		var theta = Math.atan2(nextX, nextY); // 0° = east
+		theta = (theta * 180 / Math.PI); // radians to degrees
+		// if (theta < 0) {
+		// 	theta += 360; // negative case
+		// }
+		return theta;
+	}
 	get_NextOrbitPosXYZ = (obj, centerObj = false) => {
 		if (centerObj === false) { centerObj = { position: { x: 0, y: 0, z: 0 } } }
 		// this.getDistanceXYZ(obj, centerObj)

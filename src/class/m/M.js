@@ -1,6 +1,9 @@
 class M {
 	constructor() {}
-	init(classList) {
+	init(datas) {
+		const classList = datas.classList
+		const callback = datas.callback
+
 		this.vmconfig = this.getVm();
 		this.vmClasses = {};
 		// if (this.vmconfig.classes) {}
@@ -17,8 +20,11 @@ class M {
 				this.vmconfig.classes[className].dependant = (typeof this.vmconfig.classes[className].dependances != "undefined");
 			}
 		}
+		callback('Class montées')
+
 	}
-	init_allinitiables() {
+	init_allinitiables(datas) {
+		let callback = datas.callback
 		for (const className in this.vmconfig.classes) {
 			if (typeof this[className] === "undefined") {
 				// la classe n'existe pas
@@ -38,6 +44,7 @@ class M {
 				}
 			}
 		}
+		callback('Class initialisées')
 	}
 	init_classe(datas) {
 		let classes = {};
@@ -60,7 +67,7 @@ class M {
 					auto: true,
 					order: new Number(0),
 					className: "cameras",
-					dependances: ["config","thirdPersonCamera","vehicules"],
+					dependances: ["config","thirdPersonCamera","vehicules","controls"],
 				},
 				// thirdPersonCamera: {
 				// 	auto: true,
@@ -68,12 +75,6 @@ class M {
 				// 	className: "thirdPersonCamera",
 				// 	dependances: ["config","cameras"],
 				// },
-				controls: {
-					auto: true,
-					order: new Number(1),
-					className: "controls",
-					dependances: ["config"],
-				},
 				lights: {
 					auto: true,
 					order: new Number(2),
@@ -90,7 +91,7 @@ class M {
 					auto: true,
 					order: new Number(4),
 					className: "vehicules",
-					dependances: ["config", "controls", "formula"],
+					dependances: ["config", "controls", "formula", "modelsManager"],
 				},
 				sceneManager: {
 					auto: true,
@@ -121,6 +122,24 @@ class M {
 					order: new Number(7),
 					className: "windowActive",
 					dependances: ["config"],
+				},
+				modelsConfig: {
+					auto: true,
+					order: new Number(7),
+					className: "modelsConfig",
+					dependances: [],
+				},
+				modelsManager: {
+					auto: true,
+					order: new Number(7),
+					className: "modelsManager",
+					dependances: ["modelsConfig"],
+				},
+				controls: {
+					auto: true,
+					order: new Number(1),
+					className: "controls",
+					dependances: ["config","formula"],
 				},
 			},
 		};

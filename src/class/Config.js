@@ -17,6 +17,8 @@ class Config {
 				mode: {
 					type: "PlaneGeometry",
 					fileName: "stone_floor_736x736.jpg",
+					// fileName: "grid64_512.png",
+					// fileName: "grid64_512_blanc.png",
 					size: { x: 512, y: 512 },
 				},
 				color: 0xFFeaea,
@@ -83,7 +85,7 @@ class Config {
 		this.spotLight = {
 			color: 0xff00ff,
 			intensity: 0.7,
-			position: new THREE.Vector3(0, 100, 0),
+			position: new THREE.Vector3(10,10,10),
 			angle: Math.PI / 4,
 			penumbra: 0.1,
 			decay: 0.1,
@@ -106,9 +108,18 @@ class Config {
 			aspect: window.innerWidth / window.innerHeight,
 			near: 0.0001,
 			far: 10000,
-			position: new THREE.Vector3(0, 0, 50),
-			idealLookat: new THREE.Vector3(0, 50, 0),
-			idealOffset: new THREE.Vector3(0, 0, 35), // same as position
+			// position: new THREE.Vector3(0, 0, 50),
+			idealLookat: new THREE.Vector3(0, 5, 0),
+			idealOffset: new THREE.Vector3(0, -10,20), // same as position
+			zoom: { 
+				y: { step: 3, min: 5, max: -10}, 
+				z: { step: 3, min: 2, max: 40 }
+			},
+			// lookat: new THREE.Vector3(0, 0, 0),
+			// rotation: new THREE.Vector3(0, 0, 0),
+			// followDecalage: new THREE.Vector3(0, -15, 10),
+			// lookatDecalage: new THREE.Vector3(0, 2, 2),
+			// zooming: false,
 		};
 		this.vehicule = {
 			velocity:new THREE.Vector3(.2, 0,0),

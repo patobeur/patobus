@@ -9,11 +9,12 @@ class Controls {
 	init(datas) {
 		this.formula = datas.formula;
 		this._GameConfig = datas.config;
+	}
+	start() {
 		this._initProperties();
 		this.detectDevice = this._isTouchDevice();
 		this._setupDeviceControls();
 	}
-
 	_initProperties() {
 		this.zooming = false;
 		// this.raycaster = new THREE.Raycaster();
@@ -143,12 +144,13 @@ class Controls {
 			this._handleMouseWheel(event);
 		};
 
-		// document.getElementById('game').onmousemove = event => {
-		//   this._handleMouseMove(event, target);
-		// };
+		document.getElementById("game").onmousemove = (event) => {
+			this._handleMouseMove(event, target);
+		};
 	}
 
 	_handleMouseWheel(event) {
+			this.zooming = false
 		if (event.ctrlKey === false && event.altKey === false) {
 			// if (this.conslog) console.info(event)
 			this.zooming = event.deltaY > 0 ? "out" : "in";
@@ -202,7 +204,8 @@ class Controls {
 		};
 
 		if (KEY_MAP[event.key]) {
-			if (this._preventDefaultRightClick) event.preventDefault();
+			// if (this._preventDefaultRightClick) event.preventDefault();
+			if (event.key==="'") event.preventDefault();
 			KEY_MAP[event.key]();
 		}
 	}

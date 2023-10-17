@@ -80,7 +80,7 @@ class Lights {
 				this.config.directionalLight.position.y,
 				this.config.directionalLight.position.z
 			);
-			this.directionalLight.position.set(1, 1, 1);
+			// this.directionalLight.position.set(1, 1, 30);
 			this.directionalLight.penumbra = 1;
 			this.directionalLight.decay = 1;
 			this.directionalLight.distance = 2000;
@@ -121,9 +121,11 @@ class Lights {
 		this.bulb = new THREE.PointLight(0xffffff, 0.5, 200, 0.2);
 		this.bulb.castShadow = true;
 		this.bulb.add(new THREE.Mesh(bulbGeometry, bulbMat));
-		this.bulb.position.set(0, 0, 3);
 		this.bulb.power = power;
 		this.bulb.name = "bulb_" + index;
+		
+		this.bulb.position.set(0, 0, 30);
+
 	}
 	rotateSun = (object = false) => {
 		if (object === false) {

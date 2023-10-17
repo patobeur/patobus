@@ -9,9 +9,11 @@ class Vehicules {
 		this.config = datas.config;
 		this.controls = datas.controls;
 		this.formula = datas.formula;
-		this.init_vehicule();
+		this.modelsManager = datas.modelsManager;
+		
 	}
 	init_vehicule() {
+		// console.log(this.modelsManager.allMeshsAndDatas.vehicules.Patobus.mesh);
 		this._stats = {
 			position: this.config.vehicule.position,
 			rotation: this.config.vehicule.rotation,
@@ -20,16 +22,20 @@ class Vehicules {
 			sens: 1,
 		};
 		this._oldstats = this._stats;
-		this._vehicule = new THREE.Mesh(
-			new THREE.BoxGeometry(
-				this.config.vehicule.size.x,
-				this.config.vehicule.size.y,
-				this.config.vehicule.size.z
-			),
-			new THREE.MeshBasicMaterial({
-				color: 0x00ff00,
-			})
-		);
+		this.playergroupe = new THREE.Group();
+		console.log(this.modelsManager.allMeshsAndDatas.vehicules)
+		this.playergroupe.add(this.modelsManager.allMeshsAndDatas.vehicules.small.mesh)
+		this._vehicule = this.playergroupe
+		// 	this._vehicule = new THREE.Mesh(
+		// 	new THREE.BoxGeometry(
+		// 		this.config.vehicule.size.x,
+		// 		this.config.vehicule.size.y,
+		// 		this.config.vehicule.size.z
+		// 	),
+		// 	new THREE.MeshBasicMaterial({
+		// 		color: 0x00ff00,
+		// 	})
+		// );
 		this._vehicule.name = "vehicule";
 		this._vehicule.castShadow = true;
 		this._vehicule.receiveShadow = true;

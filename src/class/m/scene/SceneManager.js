@@ -26,10 +26,13 @@ class SceneManager {
 		// le reste--------------------------
 		if (this.allFloors[0]) this.scene.add(this.allFloors[0]);
 		this.scene.add(this.camera);
-		this.scene.add(this.vehicule);
 		// ----------------------------------
 		// this.listener = new Listeners();
 		// this._M.dom.resizeListener(this.canva.renderer, this.camera);
+	}
+	init_vehicule() {
+		this.vehicule = this._Vehicules._vehicule;
+		this.scene.add(this.vehicule);
 	}
 }
 export { SceneManager };

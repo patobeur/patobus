@@ -1,6 +1,7 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.118/build/three.module.js";
-import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js";
-import { ModelsConfig } from "./ModelsConfig.js";
+import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
+// import { ModelsConfig } from "./ModelsConfig.js";
 class ModelsManager {
 	conslog = true;
 	_LOADER;
@@ -10,22 +11,21 @@ class ModelsManager {
 	mixers = [];
 	allFbx = [];
 	constructor(datas) {
-		this._fonctionretour = datas.fonctionretour;
-
+		this.callback = datas.callback;
 		this._LOADER = new GLTFLoader();
-		this.ModelsConfig = new ModelsConfig();
-		this._Init();
+		// this.init();
 	}
 
-	async _Init() {
+	async init(datas) {
+		this.ModelsConfig = datas.modelsConfig; //new ModelsConfig();
 		this._MeshDatasList = this.ModelsConfig.config;
 
 		await this.LoadModelsFrom_list();
 		this.allModelsAndAnimations = this.AddModelsToSceneWithDefaultAnimation();
-		this._fonctionretour(this.allModelsAndAnimations); // Call your callback function with loaded data
+		this.callback(this.allModelsAndAnimations); // Call your callback function with loaded data
 	}
 
-	setMeshModel(type = "character", name = "Kimono_Female", animName = "Idle") {
+	setMeshModel(type = "vehicules", name = "patobus", animName = false) {
 		this.currentAnimation = animName;
 
 		this.charGltf = this.allModelsAndAnimations[type][name].gltf;
@@ -44,9 +44,7 @@ class ModelsManager {
 		this.allModelsAndAnimations[type][name].MegaClip = this.MegaClip;
 		this.allModelsAndAnimations[type][name].MegaAction = this.MegaAction;
 
-		this.allModelsAndAnimations[type][name].changeAnimation = (
-			animName
-		) => {
+		this.allModelsAndAnimations[type][name].changeAnimation = (animName) => {
 			if (this.currentAnimation != animName) {
 				this.currentAnimation = animName;
 				this.MegaClip = THREE.AnimationClip.findByName(
@@ -94,22 +92,22 @@ class ModelsManager {
 		// 		// return this.playerChar
 		// )
 	}
-	// setMeshAnimationTo(animName = "Idle") {
-	// 	console.log("------------------------------setMeshAnimationTo ");
-	// 	if (this.currentAnimation != animName) {
-	// 		console.log("------------------------------goind to ", animName);
-	// 		this.MegaClip = THREE.AnimationClip.findByName(
-	// 			this.charGltf.animations,
-	// 			animName
-	// 		);
-	// 		console.log("this.MegaClip ", this.MegaClip);
-	// 		if (this.MegaClip) {
-	// 			this.MegaAction = this.MegaMixer.clipAction(this.MegaClip);
-	// 			this.MegaAction.play(); // Joue l'animation par défaut
-	// 			this.currentAnimation = animName;
-	// 		}
-	// 	}
-	// }
+	setMeshAnimationTo(animName = "Idle") {
+		console.log("------------------------------setMeshAnimationTo ");
+		if (this.currentAnimation != animName) {
+			console.log("------------------------------goind to ", animName);
+			this.MegaClip = THREE.AnimationClip.findByName(
+				this.charGltf.animations,
+				animName
+			);
+			console.log("this.MegaClip ", this.MegaClip);
+			if (this.MegaClip) {
+				this.MegaAction = this.MegaMixer.clipAction(this.MegaClip);
+				this.MegaAction.play(); // Joue l'animation par défaut
+				this.currentAnimation = animName;
+			}
+		}
+	}
 	async LoadModelsFrom_list() {
 		const indexedMeshs = [];
 		for (const key in this._MeshDatasList) {

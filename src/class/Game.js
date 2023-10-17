@@ -11,39 +11,63 @@ import { Vehicules } from "./m/scene/Vehicules.js";
 import { FloorsManager } from "./m/scene/FloorsManager.js";
 import { Controls } from "./m/controls/Controls.js";
 import { Orbital } from "./m/controls/Orbital.js";
+import { ModelsConfig } from "./m/models/ModelsConfig.js";
+import { ModelsManager } from "./m/models/ModelsManager.js";
 import { M } from "./m/M.js";
 
 class Game {
 	constructor() {
 		this.pause = false;
 		this._M = new M();
+		this.init();
+	}
+	init() {
 		this._M.init({
-			config: new Config(),
-			formula: new Formula(),
-			controls: new Controls(),
-			sceneManager: new SceneManager(),
-			floorsManager: new FloorsManager(),
-			cameras: new Cameras(),
-			dom: new DomManager(),
-			canva: new Canva(),
-			lights: new Lights(),
-			vehicules: new Vehicules(),
-			orbital: new Orbital(),
-			windowActive: new WindowActive(),
-			thirdPersonCamera: new ThirdPersonCamera(),
+			classList: {
+				config: new Config(),
+				formula: new Formula(),
+				controls: new Controls(),
+				sceneManager: new SceneManager(),
+				floorsManager: new FloorsManager(),
+				cameras: new Cameras(),
+				dom: new DomManager(),
+				canva: new Canva(),
+				lights: new Lights(),
+				vehicules: new Vehicules(),
+				orbital: new Orbital(),
+				windowActive: new WindowActive(),
+				thirdPersonCamera: new ThirdPersonCamera(),
+				modelsConfig: new ModelsConfig(),
+				modelsManager: new ModelsManager({
+					callback: (allModelsAndAnimations) => {
+						this.allModelsAndAnimations = allModelsAndAnimations;
+						this.modelok();
+					},
+				}),
+			},
+			callback: (e) => {
+				console.log('1',e);
+				this._M.init_allinitiables({
+					callback: (e) => {
+						console.log('2',e);
+					},
+				}); // class with init()
+			},
 		});
-		// ----------------------------------
-		this._M.init_allinitiables(); // class with init()
-		// ----------------------------------
+	}
+
+	modelok() {
 		// this._M.orbital.init_OrbitControls();
 		// ----------------------------------
+		this._M.vehicules.init_vehicule();
+		this._M.sceneManager.init_vehicule();
 		this._M.cameras.update();
 		this._M.canva.initRender();
+		this._M.controls.start();
 		this._M.dom.resizeListener(this._M.canva.renderer, this._M.cameras.camera);
 		// ----------------------------------
 		this.START();
 	}
-
 	START() {
 		this._REFRESH();
 	}
@@ -57,15 +81,9 @@ class Game {
 			// ----------------------------------
 			this._M.canva.initRender();
 			if (this._M.orbital.active) this._M.orbital.orbitControls.update();
-			if (this.pause === true) {
-				console.log("go");
-				this.pause = false;
-			}
+			if (this.pause === true) this.pause = false;
 		} else {
-			if (this.pause === false) {
-				console.log("pause");
-				this.pause = true;
-			}
+			if (this.pause === false) this.pause = true;
 		}
 	}
 	_REFRESH() {

@@ -5,7 +5,7 @@ class Cameras {
 		this.config = datas.config;		
 		this.thirdPersonCamera = datas.thirdPersonCamera;
 		this.vehicules = datas.vehicules;
-		
+		this.controls = datas.controls;
 		this.init_camera();
 	}
 	init_camera() {
@@ -26,17 +26,15 @@ class Cameras {
 		});
 	}
 	update() {
+		if (this.controls) {
+			if (this.controls.zooming) {
+				this.thirdPersonCamera.handleZoom(this.controls.zooming);
+				this.controls.zooming = false;
+				// this._CameraManager.FollowPlayer(this.futurPositions,this.oldPosition,this.CameraNum)
+			// console.log(this.zooming)
+			}
+		}
 		this.thirdPersonCamera.update(this.vehicules._vehicule);
 	}
-	// updateCameraPosition(target) {
-	// 	this.camera.position.copy(
-	// 		target.position.clone().add(this.config.camera.idealOffset)
-	// 	);
-	// 	this.camera.lookAt(target.position);
-	// }
-	// ------------------------------------
-	// ------------------------------------
-	// ------------------------------------
-	// ------------------------------------
 }
 export { Cameras };
